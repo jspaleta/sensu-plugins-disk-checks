@@ -11,7 +11,7 @@ rvm:
 notifications:
   email:
     recipients:
-    - sensu-plugin@sensu-plugins.io
+    - jef@sensu.io
     on_success: change
     on_failure: always
 script:
@@ -19,20 +19,20 @@ script:
 - gem build sensu-plugins-disk-checks.gemspec
 - gem install sensu-plugins-disk-checks-*.gem
 
-deploy:
-  - provider: rubygems
-    api_key:
-      secure: MA9lRNkP7h07yWS10BZ6ZdlWNdgKB4UU5OyLiwM+IFB8uWMM/l5OsCThYkPPRTNCcGR6O2QaXukgKSz8TX+c3b/+ocMa2iJRnREIkH6/F0ujdmMmtVFFh8/lUdtlxdg3i7HqhjbhZgUNPbDUI5eVO72QAb4s20Idyw92kPEFBXU=
-    gem: sensu-plugins-disk-checks
-    on:
-      tags: true
-      all_branches: true
-      rvm: 2.3.0
-      rvm: 2.4.1
-      repo: sensu-plugins/sensu-plugins-disk-checks
+  #deploy:
+  #  - provider: rubygems
+  #  api_key:
+  #    secure: MA9lRNkP7h07yWS10BZ6ZdlWNdgKB4UU5OyLiwM+IFB8uWMM/l5OsCThYkPPRTNCcGR6O2QaXukgKSz8TX+c3b/+ocMa2iJRnREIkH6/F0ujdmMmtVFFh8/lUdtlxdg3i7HqhjbhZgUNPbDUI5eVO72QAb4s20Idyw92kPEFBXU=
+  #  gem: sensu-plugins-disk-checks
+  #  on:
+  #    tags: true
+  #    all_branches: true
+  #    rvm: 2.3.0
+  #    rvm: 2.4.1
+  #    repo: sensu-plugins/sensu-plugins-disk-checks
 
-after_deploy:
-  - travis/build-assets.sh      
-  - travis/generate-sha512sum.sh
-  - travis/github-release-upload.sh github_api_token=$GITHUB_TOKEN repo_slug="$TRAVIS_REPO_SLUG" tag="${TRAVIS_TAG}" filename="dist/$(cat dist/sha512_file)"    
+  #after_deploy:
+  #- travis/build-assets.sh      
+  #- travis/generate-sha512sum.sh
+  #- travis/github-release-upload.sh github_api_token=$GITHUB_TOKEN repo_slug="$TRAVIS_REPO_SLUG" tag="${TRAVIS_TAG}" filename="dist/$(cat dist/sha512_file)"    
 
