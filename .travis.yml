@@ -9,8 +9,7 @@ rvm:
 - 2.3.0
 - 2.4.1
 env:
-  global:
-    - GEM_NAME = sensu-plugins-disk-checks    
+  - GEM_NAME = sensu-plugins-disk-checks    
 
 notifications:
   email:
@@ -19,11 +18,11 @@ notifications:
     on_success: change
     on_failure: always
 script:
-- echo "GEM: ${GEM_NAME}"
-- bundle exec rake default
-- gem build ${GEM_NAME}.gemspec
-- gem install ${GEM_NAME}-*.gem
-- travis/build_bonsai_assets.sh
+  - echo $GEM_NAME
+  - bundle exec rake default
+  - gem build $GEM_NAME.gemspec
+  - gem install $GEM_NAME-*.gem
+  - travis/build_bonsai_assets.sh
   #deploy:
   #  - provider: rubygems
   #  api_key:
