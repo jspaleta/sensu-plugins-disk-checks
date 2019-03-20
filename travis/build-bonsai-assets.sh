@@ -32,8 +32,8 @@ if [ -d dist ]; then
   files=$( ls dist/*.tar.gz )
   echo $files
   for filename in $files; do
-    echo "upload $filename"
     if [[ "$TRAVIS_TAG" ]]; then
+      echo "upload $filename"
       travis/github-release-upload.sh github_api_token=$GITHUB_TOKEN repo_slug="$TRAVIS_REPO_SLUG" tag="${TRAVIS_TAG}" filename="$filename"
     fi
   done 
@@ -51,6 +51,7 @@ if [ -d dist ]; then
     cat "${sha512_file}"
     cd ..
     if [[ "$TRAVIS_TAG" ]]; then
+      echo "upload ${sha512_file}"
       travis/github-release-upload.sh github_api_token=$GITHUB_TOKEN repo_slug="$TRAVIS_REPO_SLUG" tag="${TRAVIS_TAG}" filename="${sha512_file}"
     fi
   fi
