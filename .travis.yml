@@ -8,8 +8,6 @@ install:
 rvm:
 - 2.3.0
 - 2.4.1
-env:
-  - GEM_NAME = sensu-plugins-disk-checks    
 
 notifications:
   email:
@@ -18,11 +16,10 @@ notifications:
     on_success: change
     on_failure: always
 script:
-  - echo $GEM_NAME
   - bundle exec rake default
-  - gem build $GEM_NAME.gemspec
-  - gem install $GEM_NAME-*.gem
-  - travis/build_bonsai_assets.sh
+  - gem build sensu-plugins-disk-checks.gemspec
+  - gem install sensu-plugins-disk-checks-*.gem
+  - travis/build-bonsai-assets.sh sensu-plugins-disk-checks
   #deploy:
   #  - provider: rubygems
   #  api_key:
@@ -35,8 +32,4 @@ script:
   #    rvm: 2.4.1
   #    repo: sensu-plugins/sensu-plugins-disk-checks
 
-  #after_deploy:
-  #- travis/build-assets.sh      
-  #- travis/generate-sha512sum.sh
-  #- travis/github-release-upload.sh github_api_token=$GITHUB_TOKEN repo_slug="$TRAVIS_REPO_SLUG" tag="${TRAVIS_TAG}" filename="dist/$(cat dist/sha512_file)"    
 
