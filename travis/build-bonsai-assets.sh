@@ -49,11 +49,11 @@ if [ -d dist ]; then
     sha512sum ./*.tar.gz > "${sha512_file}"
     echo ""
     cat "${sha512_file}"
+    cd ..
     if [[ "$TRAVIS_TAG" ]]; then
       echo "upload ${sha512_file}"
-      travis/github-release-upload.sh github_api_token=$GITHUB_TOKEN repo_slug="$TRAVIS_REPO_SLUG" tag="${TRAVIS_TAG}" filename="${sha512_file}"
+      travis/github-release-upload.sh github_api_token=$GITHUB_TOKEN repo_slug="$TRAVIS_REPO_SLUG" tag="${TRAVIS_TAG}" filename="dist/${sha512_file}"
     fi
-    cd ..
   fi
 
 else
