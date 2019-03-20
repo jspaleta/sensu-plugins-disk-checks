@@ -25,17 +25,17 @@ Gem::Specification.new do |s| # rubocop:disable Metrics/BlockLength
   s.platform               = Gem::Platform::RUBY
   s.post_install_message   = 'You can use the embedded Ruby by setting EMBEDDED_RUBY=true in /etc/default/sensu'
   s.require_paths          = ['lib']
-  s.required_ruby_version  = '>= 2.1'
+  s.required_ruby_version  = '>= 2.3'
   # s.signing_key            = File.expand_path(pvt_key) if $PROGRAM_NAME =~ /gem\z/
   s.summary                = 'Sensu plugins for disk checks'
   s.test_files             = s.files.grep(%r{^(test|spec|features)/})
   s.version                = SensuPluginsDiskChecks::Version::VER_STRING
 
-  s.add_runtime_dependency 'sensu-plugin', '~> 1.2'
+  s.add_runtime_dependency 'sensu-plugin', '>= 3.0', '< 4.0'
 
   s.add_runtime_dependency 'sys-filesystem', '1.1.7'
 
-  s.add_development_dependency 'bundler',                   '~> 1.7'
+  s.add_development_dependency 'bundler',                   '~> 2.0'
   s.add_development_dependency 'codeclimate-test-reporter', '~> 1.0'
   s.add_development_dependency 'github-markup',             '~> 3.0'
   s.add_development_dependency 'pry',                       '~> 0.10'
