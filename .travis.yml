@@ -19,6 +19,9 @@ script:
   - bundle exec rake default
   - gem build sensu-plugins-disk-checks.gemspec
   - gem install sensu-plugins-disk-checks-*.gem
+
+before_deploy:
+  - git clone https://github.com/sensu/sensu-go-bonsai-asset.git --branch feature/ruby-plugin-assets bonsai
 deploy:
   - provider: rubygems
     api_key:
@@ -30,10 +33,13 @@ deploy:
       rvm: 2.3.0
       rvm: 2.4.1
       repo: sensu-plugins/sensu-plugins-disk-checks
+  ###
+  # Build Bonsai Assets using ruby-runtime docker images when tagging releases
+  #  NOTE: secure GITHUB_TOKEN variable must be set.  
+  ### 
   - provider: script 
-    script: travis/build-bonsai-assets.sh sensu-plugins-disk-checks
+    script: bonsai/ruby-runtime/travis-build-bonsai-assets.sh sensu-plugins-disk-checks
     skip_cleanup: true
-    gem: sensu-plugins-disk-checks
     on:
       tags: true
       all_branches: true
